@@ -2,17 +2,44 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\TableChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-/**
+    /**
      * @Route("/table", name="table")
      */
 
 class TableController extends AbstractController
 {
+    /**
+     * @Route("/select", name="table_select")
+     */
+    public function select(Request $request){
+        
+        $form = $this->createform(TableChoiceType::class);
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()){
+            $data = $form->getData();
+            $id = $data['id'];
+            $nb = $data['nb_resultat'];
+            $color = $data['color'];
+            $response = $this->render('table/index.html.twig',[
+                'controller_name' => 'TableController',
+                'id' => $id,
+                'nb_resultat' => $nb,
+                'color' => $color,
+            ]);
+        }else{
+            return $this->render('table/vue.html.twig', [ 
+                'formulaire' => $form->createView(),
+            ]);
+        }
+    }
     
     public function index(): Response
     {
