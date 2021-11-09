@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Table;
 use App\Form\TableChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,23 +25,32 @@ class TableController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()){
+            //dump("submit");
             $data = $form->getData();
             $id = $data['id'];
             $nb = $data['nb_resultat'];
             $color = $data['color'];
+
+            $table = new Table($id);
+            $calculations = $table->calcMultiply($nb);
+            //dump($nb);
             $response = $this->render('table/index.html.twig',[
                 'controller_name' => 'TableController',
                 'id' => $id,
-                'nb_resultat' => $nb,
+                'calculations' => $calculations,
                 'color' => $color,
+                
             ]);
         }else{
-            return $this->render('table/vue.html.twig', [ 
+            //dump("not submit");
+            $response = $this->render('table/vue.html.twig', [ 
                 'formulaire' => $form->createView(),
             ]);
         }
+
+        return $response;
     }
-    
+   
     public function index(): Response
     {
         return $this->render('table/index.html.twig', [

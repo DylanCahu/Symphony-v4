@@ -20,7 +20,15 @@ class TableChoiceType extends AbstractType
         //     'attr' => ['style' => 'width: 35px;'],
         // ]);
 
-        $builder->add('id', ChoiceType::class,) 
+        $builder->add('id', ChoiceType::class,[
+            'choices'=>[  
+            1 => 1,
+            2 => 2,
+            3 => 3,
+            4 => 4,
+            5 => 5,
+            ],
+        ])
             
             ->add('nb_resultat', IntegerType::class, [
                     'attr' => ['style' => 'width: 35px;'],

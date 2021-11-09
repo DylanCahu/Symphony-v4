@@ -8,22 +8,13 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/cahudyl/Documents/symphony/essai1/src/Controller/TableController.php'|file_link(0) }}">src/Controller/TableController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/cahudyl/Documents/symphony/essai1/templates/table/index.html.twig'|file_link(0) }}">templates/table/index.html.twig</a></code></li>
-    </ul>
-</div>
-
 <center>
 
 <table style="border: 1px solid {{color}} ; color: {{color}};">
 
-{% for i in 0..nb_resultat %}
- <tr><td><th>{{i}} x {{id}} = {{ i * id }} </th> </td> </tr>
+{# {% dump(calculations) %} #}
+{% for calculation in calculations %}
+ <tr><td><th>{{calculation.indice}} x {{id}} = {{ calculation.result }} </th> </td> </tr>
 {% endfor %}
 
 </table>
